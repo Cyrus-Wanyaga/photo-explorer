@@ -1,0 +1,23 @@
+export const searchOptions = [
+    'Art',
+    'Orange',
+    'Architecture',
+    'Cars',
+    'Ocean',
+    'Sky',
+    'Textures & Patterns',
+    'Nature',
+    'Food & Drink',
+    'People',
+    'Purple',
+    'Sunset',
+    'Fashion',
+    'Film',
+    'Wallpapers',
+    'Interiors',
+    'Street',
+    'Space',
+    'Eyes',
+    'Africa',
+    'Technology'
+]

@@ -1,0 +1,51 @@
+.difficulty_options_div {
+    background-color: #4d1a59;
+    margin-top: 80px;
+    padding: 32px;
+    width: 100%;
+    transform-origin: top center;
+    align-items: center;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.difficulty_options_select_div {
+    width: 33.3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 16px;
+    height: 170px;
+    justify-content: flex-end;
+}
+
+.difficulty_options_select_div p {
+    margin: 16px 0 0 0;
+}
+
+.difficulty_options_select_inner_div {
+    display: flex;
+    cursor: pointer;
+}
+
+.difficulty_options_shape {
+    background-color: #ec5a5a;
+    width: 40px;
+    height: 25px;
+    border-radius: 8px;
+    margin: 4px;
+}
+
+@media only screen and (max-width: 600px) {
+    .difficulty_options_div {
+        overflow-x: scroll;
+    }
+
+    .difficulty_options_select_div {
+        height: 100px;
+    }
+
+    .difficulty_options_shape {
+        width: 15px;
+        height: 10px;
+    }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "photo-explorer",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6.0.5",
+    "@dnd-kit/sortable": "^7.0.1",
+    "@dnd-kit/utilities": "^3.2.0",
+    "@splidejs/splide": "^4.0.7",
+    "animejs": "^3.2.1",
+    "next": "12.2.1",
+    "query-string": "^7.1.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "swiffy-slider": "^1.5.3"
+  },
+  "devDependencies": {
+    "eslint": "8.19.0",
+    "eslint-config-next": "12.2.1"
+  }
+}

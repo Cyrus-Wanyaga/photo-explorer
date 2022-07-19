@@ -1,0 +1,241 @@
+/*
+Main Page CSS Styles
+    1. Containers
+    2. Grid
+    3.
+    4. Media query - mobile (<600px)
+*/
+
+.main_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 32px 0;
+}
+
+.side_container {
+    padding: 0 32px;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.side_container_holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    transition: 0.2s all;
+}
+
+.middle_container {
+    width: 50%;
+    display: grid;
+    grid-gap: 16px;
+    height: 100%;
+    transition: all 0.5s ease-in;
+    /*grid-template-rows: 1fr;*/
+}
+
+.category_div {
+    background-color: blueviolet;
+    text-align: center;
+    padding: 16px;
+    color: white;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.5s ease-in all;
+}
+
+.category_div:hover {
+    background-color: mediumpurple;
+    color: #151515;
+}
+
+.picture_div {
+    height: 100%;
+    max-height: 300px;
+    width: 100%;
+    min-height: 300px;
+    border-radius: 8px;
+    cursor: default;
+    background-color: #4d1a59;
+    z-index: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.picture_div_info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 16px 0 0 16px;
+    opacity: 0;
+    transition: all 0.5s ease-in;
+    cursor: pointer;
+}
+
+.picture_div:hover > .picture_div_info {
+    transition-delay: 0.5s;
+    opacity: 1;
+}
+
+.picture_div_info:nth-of-type(2) {
+    right: 0;
+    left: auto;
+    margin: 16px 16px 0 0;
+}
+
+.picture_div_info:nth-of-type(3) {
+    right: auto;
+    left: 0;
+    top: auto;
+    bottom: 0;
+    margin: 0 0 16px 16px;
+}
+
+.picture_div_info_bg {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 11;
+}
+
+.picture_div_info_bg span {
+    color: white;
+    font-size: 16px;
+}
+
+.picture_div_img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    transition: all 0.5s linear;
+    z-index: 1;
+}
+
+/*.picture_div:nth-of-type(2n+0) {*/
+/*    grid-column: span 2;*/
+/*}*/
+
+/*.picture_div:nth-of-type(3n+0) {*/
+/*    grid-column: span 1 !important;*/
+/*}*/
+
+.pages_div {
+    border-radius: 8px;
+    padding: 8px 32px;
+    margin: 16px 0;
+    cursor: pointer;
+    background-color: blueviolet;
+    transition: 0.5s all ease-in;
+}
+
+.pages_div:nth-of-type(1) {
+    margin-top: 0;
+}
+
+.pages_div:hover {
+    background-color: mediumpurple;
+    color: #151515;
+}
+
+.slider_arrows_bg {
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: blueviolet;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    transition: all 0.5s ease-in;
+}
+
+.slider_arrows_bg:hover {
+    background-color: mediumpurple;
+}
+
+.slider_arrows_bg span {
+    transition: 0.5s ease-in all;
+    color: white;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+.slider_arrows_bg:hover.slider_arrows_bg span {
+    color: #151515 !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .main_container {
+        flex-direction: column;
+        padding: 0;
+        height: 100%;
+        min-height: 100%;
+        justify-content: space-between;
+    }
+
+    .side_container {
+        flex-direction: row;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        padding: 0 16px;
+        min-height: 100px;
+    }
+
+    .middle_container {
+        width: 100%;
+        padding: 16px;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+    }
+
+    .side_container_holder {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        position: relative;
+    }
+
+    .picture_div {
+        max-height: 150px;
+        height: 100%;
+        min-height: 150px;
+    }
+    /*.picture_div:nth-of-type(3n+0) {*/
+    /*    grid-column: span 1;*/
+    /*}*/
+    .picture_div:nth-of-type(2n+0) {
+        grid-column: span 1;
+    }
+
+    /*.picture_div:nth-of-type(3n+0) {*/
+    /*    grid-column: span 1 !important;*/
+    /*}*/
+    .slider_arrows_bg {
+        margin: 0 16px 0 16px !important;
+    }
+
+    .pages_div {
+        margin: 0 16px;
+        overflow: auto;
+        /*padding: 8px;*/
+    }
+
+    .side_container_holder p {
+        margin: 0 !important;
+    }
+}
