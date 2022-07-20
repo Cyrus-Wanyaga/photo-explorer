@@ -28,7 +28,7 @@ export const defaultDifficultyConfigs = {
     },
     master: {
         gridTemplateColumns: '1fr 1fr 1fr 1fr',
-        modulus2Div: 'span 1',
+        modulus2Div: 'span 2',
         modulus3Div: 'span 1',
         results: 16
     }

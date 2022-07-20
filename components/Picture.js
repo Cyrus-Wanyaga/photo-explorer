@@ -4,7 +4,7 @@ import {CSS} from "@dnd-kit/utilities";
 import {useState, useEffect} from "react";
 
 function Picture({pictureData = {}, index, gridColumn = {}}) {
-    const [zooming, setZooming] = useState()
+    const [zoom, setZooming] = useState()
     let zoomStyles
 
     useEffect(() => {
@@ -91,12 +91,12 @@ function Picture({pictureData = {}, index, gridColumn = {}}) {
              style={style}
              {...listeners}
              {...attributes}
-            // onMouseMove={mouseInDiv}
-             onMouseEnter={zoomIn}
+             // onMouseMove={mouseInDiv}
+            onMouseEnter={zoomIn}
              onMouseLeave={mouseOutDiv}
              id={pictureData.id}>
-            <img className={styles.picture_div_img} src={pictureData.urls.regular} alt={""}
-                 placeholder={pictureData.blur_hash} style={zooming} loading={"lazy"}/>
+            <img className={styles.picture_div_img} src={pictureData.urls.regular} alt={""} style={zoom}
+                 loading={"lazy"}/>
             <div className={styles.picture_div_info} onClick={zoomInStyles}>
                 <div className={styles.picture_div_info_bg} data-position="top-right">
                     <span className="material-symbols-rounded">person</span>
