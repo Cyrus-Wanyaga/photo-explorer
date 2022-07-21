@@ -55,7 +55,7 @@ export default function Navbar({triggers = {}}) {
                 <p className={styles.navbar_link_with_dropdown} onMouseEnter={() => setDisplayDropdown(true)} onMouseLeave={() => {setDisplayDropdown(false)}}>Account
                     {displayDropdown && <NavbarDropdown/>}
                 </p>
-                {/*<span className={"material-symbols-rounded"}>apps</span>*/}
+                {/*<span className={styles.navbar_links_span + " material-symbols-rounded"}>apps</span>*/}
             </div>
             <span className={styles.navbar_mobile_toggle + " material-symbols-rounded"}
                   onClick={openMobileMenu}>apps</span>

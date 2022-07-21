@@ -12,6 +12,8 @@ import DifficultyOptions from "../components/DifficultyOptions";
 import {defaultArrowStyles, defaultPictureLayoutStyles, defaultDifficultyConfigs} from "../libs/constants";
 import MobileNavbar from "../components/MobileNavbar";
 import anime from "animejs";
+import ExpectedSolution from "../components/ExpectedSolution";
+import SuccessMessage from "../components/SuccessMessage";
 
 let splide
 
@@ -25,15 +27,18 @@ export default function Home() {
     const querystring = require('query-string');
     const [searchTerm, setSearchTerm] = useState("");
     const [page, setPage] = useState(1);
-    const [resultsCount, setResultsCount] = useState(12);
+    const [resultsCount, setResultsCount] = useState();
     const [openMobileNav, setOpenMobileNav] = useState(false);
+    const [showExpectedSolution, setShowExpectedSolution] = useState(true);
+    const [solved, setSolved] = useState(false)
 
     const [arrowStyles, setArrowStyles] = useState({upStyle: {}, downStyle: {}});
     const [pictureLayoutStyles, setPictureLayoutStyles] = useState({});
     const [sideContainerStyles, setSideContainerStyles] = useState({});
 
     const [pictures, setPictures] = useState(null);
-    const [difficulty, setDifficulty] = useState({})
+    const [originalPictures, setOriginalPictures] = useState(null);
+    const [difficulty, setDifficulty] = useState({});
     const [layoutOptions, setLayoutOptions] = useState(false);
     const [difficultyOptions, setDifficultyOptions] = useState(false);
     const {isOver, setNodeRef} = useDroppable({
@@ -45,34 +50,52 @@ export default function Home() {
     const {attributes, listeners, draggableNodeRef, transform} = useDraggable({})
 
     useEffect(() => {
-        const resizeNavBar = () => {
-            // if (document.documentElement.scrollTop > 32) {
-            //     setSideContainerStyles({top: '32px'})
-            // } else if (document.documentElement.scrollTop < 32) {
-            //     if (difficultyOptions) {
-            //         const difficultyOptionsDivHeight = difficultyOptionsRef.current.height
-            //         const newHeight = parseInt(difficultyOptionsDivHeight) + 112
-            //         const topValue = newHeight.toString() + 'px'
-            //         setSideContainerStyles({top: topValue})
-            //     } else if (layoutOptions) {
-            //         const difficultyOptionsDivHeight = layoutOptionsRef.current.height
-            //         const newHeight = parseInt(difficultyOptionsDivHeight) + 112
-            //         const topValue = newHeight.toString() + 'px'
-            //         setSideContainerStyles({top: topValue})
-            //     } else {
-            //         setSideContainerStyles({top: '112px'})
-            //     }
-            // }
+        showExpectedSolution ? document.body.parentElement.style.overflowY = "hidden" : null
+        const loadConfigs = () => {
+            setDifficulty(defaultDifficultyConfigs)
+            setArrowStyles(defaultArrowStyles)
+
+            if (localStorage.getItem("level") !== undefined && localStorage.getItem("level") !== null) {
+                if (localStorage.getItem("level") === "easy") {
+                    setResultsCount(defaultDifficultyConfigs.easy.results)
+                    setPictureLayoutStyles({
+                        mainDiv: {
+                            gridTemplateColumns: defaultDifficultyConfigs.easy.gridTemplateColumns,
+                        },
+                        modulus2Div: defaultDifficultyConfigs.easy.gridColumn,
+                        modulus3Div: defaultDifficultyConfigs.easy.gridColumn,
+                    })
+                } else if (localStorage.getItem("level") === "medium") {
+                    setResultsCount(defaultDifficultyConfigs.medium.results)
+                    setPictureLayoutStyles({
+                        mainDiv: {
+                            gridTemplateColumns: defaultDifficultyConfigs.medium.gridTemplateColumns,
+                        },
+                        modulus2Div: defaultDifficultyConfigs.medium.gridColumn,
+                        modulus3Div: defaultDifficultyConfigs.medium.gridColumn,
+                    })
+                } else if (localStorage.getItem("level") === "master") {
+                    setResultsCount(defaultDifficultyConfigs.master.results)
+                    setPictureLayoutStyles({
+                        mainDiv: {
+                            gridTemplateColumns: defaultDifficultyConfigs.master.gridTemplateColumns,
+                        },
+                        modulus2Div: defaultDifficultyConfigs.master.modulus2Div,
+                        modulus3Div: defaultDifficultyConfigs.master.modulus3Div,
+                    })
+                }
+            } else {
+                setResultsCount(12)
+                setPictureLayoutStyles(defaultPictureLayoutStyles)
+            }
         }
 
-        // window.addEventListener("scroll", resizeNavBar)
-        // return () => window.removeEventListener("scroll", resizeNavBar)
-    }, [])
-    useEffect(() => {
-        setArrowStyles(defaultArrowStyles)
-        setPictureLayoutStyles(defaultPictureLayoutStyles)
-        setDifficulty(defaultDifficultyConfigs)
+        loadConfigs()
+        resultsCount !== undefined ? fetchPictures(page) : () => {
+        }
+    }, [resultsCount])
 
+    useEffect(() => {
         splide = new Splide('.splide', {
             direction: 'ttb',
             perPage: 1,
@@ -87,9 +110,11 @@ export default function Home() {
             gap: '16px'
         })
         splide.mount()
-
-        fetchPictures(page)
     }, [])
+
+    useEffect(() => {
+        !showExpectedSolution ? document.body.parentElement.style.overflowY = "scroll" : document.body.parentElement.style.overflowY = "hidden"
+    }, [showExpectedSolution])
 
     useEffect(() => {
         splide.on('move', () => {
@@ -144,7 +169,9 @@ export default function Home() {
         fetch("https://api.unsplash.com/photos/?" + params, requestOptions)
             .then(response => response.text())
             .then(result => {
-                setPictures(JSON.parse(result))
+                setOriginalPictures(JSON.parse(result))
+                const shuffled = shuffledArray(JSON.parse(result))
+                setPictures(...[shuffled])
             })
             .catch(error => console.log('error', error));
     }
@@ -178,8 +205,10 @@ export default function Home() {
         fetch("https://api.unsplash.com/search/photos/?" + params, requestOptions)
             .then(response => response.text())
             .then(result => {
-                const pictures = JSON.parse(result)
-                setPictures(pictures.results)
+                setOriginalPictures(JSON.parse(result).results)
+                const shuffled = shuffledArray(JSON.parse(result).results)
+                setPictures(...[shuffled])
+                setShowExpectedSolution(true)
             })
             .catch(error => console.log('error', error));
     }
@@ -195,6 +224,7 @@ export default function Home() {
                 modulus2Div: difficulty.easy.gridColumn,
                 modulus3Div: difficulty.easy.gridColumn,
             })
+            localStorage.setItem("level", "easy")
         } else if (difficultyOpt === 'medium') {
             setResultsCount(difficulty.medium.results)
             reloadLayoutAPICall(difficulty.medium.results)
@@ -205,6 +235,7 @@ export default function Home() {
                 modulus2Div: difficulty.medium.gridColumn,
                 modulus3Div: difficulty.medium.gridColumn,
             })
+            localStorage.setItem("level", "medium")
         } else if (difficultyOpt === 'master') {
             setResultsCount(difficulty.master.results)
             reloadLayoutAPICall(difficulty.master.results)
@@ -215,8 +246,10 @@ export default function Home() {
                 modulus2Div: difficulty.master.modulus2Div,
                 modulus3Div: difficulty.master.modulus3Div,
             })
+            localStorage.setItem("level", "master")
         }
         setDifficultyOptions(!difficultyOptions)
+        setShowExpectedSolution(true)
     }
 
     const reloadLayoutAPICall = (results) => {
@@ -245,10 +278,18 @@ export default function Home() {
         fetch(url + params, requestOptions)
             .then(response => response.text())
             .then(result => {
-                const pictures = JSON.parse(result)
-                searchTerm === "" ? setPictures(pictures) : setPictures(pictures.results)
+                if (searchTerm === "") {
+                    setOriginalPictures(JSON.parse(result));
+                    const shuffled = shuffledArray(JSON.parse(result));
+                    setPictures(...[shuffled]);
+                } else {
+                    setOriginalPictures(JSON.parse(result).results)
+                    const shuffled = shuffledArray(JSON.parse(result).results);
+                    setPictures(...[shuffled]);
+                }
             })
             .catch(error => console.log('error', error));
+        setShowExpectedSolution(true)
     }
 
     function handleDragEnd({active, over}) {
@@ -264,12 +305,32 @@ export default function Home() {
         }
     }
 
+    useEffect(() => {
+        checkIfSolved()
+    }, [pictures])
+
+    const checkIfSolved = () => {
+        if (pictures !== null && originalPictures !== null) {
+            let solved
+            for (let x = 0; x < originalPictures.length; x++) {
+                if (originalPictures[x].id === pictures[x].id) {
+                    solved = true
+                } else {
+                    solved = false
+                    break
+                }
+            }
+            setSolved(solved)
+        }
+    }
+
     const loadNextPage = (event) => {
         event.preventDefault()
         const searchPage = event.target.attributes["data-page"].value
         setPage(searchPage)
 
         searchTerm === "" ? fetchPictures(searchPage) : reloadPicturesWithNewParams(searchTerm, searchPage)
+        setShowExpectedSolution(true)
     }
 
     const moveSliderDown = (event) => {
@@ -282,22 +343,21 @@ export default function Home() {
         splide.go('<')
     }
 
-    const applyStaggerAnimation = (event) => {
-        event.preventDefault()
-        console.log(event.target)
-        const newArray = [...pictures]
-        const shuffledArray = (array) => {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                const temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
-            }
-
-            return array
+    function shuffledArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
         }
 
-        const shuffle = shuffledArray(newArray)
+        return array
+    }
+
+    const applyStaggerAnimation = (event) => {
+        event.preventDefault()
+        const newArray = [...pictures]
+        const shuffledPictures = shuffledArray(newArray)
 
         let animation = anime({
             targets: '#droppable_section .picture_div',
@@ -315,7 +375,9 @@ export default function Home() {
             ],
             delay: anime.stagger(200, {grid: [3, 4], from: 'first'}),
             begin: function () {
-                setTimeout(() => {setPictures(shuffle)}, 500)
+                setTimeout(() => {
+                    setPictures(shuffledPictures)
+                }, 500)
             }
         });
 
@@ -331,13 +393,17 @@ export default function Home() {
 
     return (
         <Layout title={"Photo Explorer"}>
-            <div className={""}>
+            <div className={""} style={{position: 'relative'}}>
+                {solved && <SuccessMessage showSuccess={setSolved}/>}
+                {showExpectedSolution &&
+                    <ExpectedSolution showExpectedSolution={setShowExpectedSolution} pictures={originalPictures}
+                                      layoutStyles={pictureLayoutStyles}/>}
                 <Navbar triggers={triggers}/>
                 {openMobileNav && <MobileNavbar setOpenMobileNav={setOpenMobileNav}/>}
                 <LayoutOptions layoutOptions={layoutOptions} setPictureLayoutOptionsStyle={setPictureLayoutStyles}
                                ref={layoutOptionsRef}/>
-                <DifficultyOptions difficultyOptions={difficultyOptions} setDifficultyOptions={setDifficultyOptions}
-                                   reload={reloadWithDifficultySettings} ref={difficultyOptionsRef}/>
+                <DifficultyOptions difficultyOptions={difficultyOptions} reload={reloadWithDifficultySettings}
+                                   ref={difficultyOptionsRef}/>
                 <div className={styles.main_container}
                      style={!layoutOptions && !difficultyOptions ? {marginTop: '80px'} : {marginTop: '0'}}>
                     <div className={styles.side_container}>
@@ -366,14 +432,14 @@ export default function Home() {
                     </div>
                     <div className={styles.middle_container} id={"droppable_section"} ref={setNodeRef}
                          style={pictureLayoutStyles.mainDiv}
-                    onClick={applyStaggerAnimation}>
+                         onClick={applyStaggerAnimation}>
                         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                             {pictures !== null && pictures.length > 0 ? (
                                 <SortableContext items={pictures.map(picture => picture.id)}
                                                  strategy={rectSwappingStrategy}>
                                     {pictures.map((picture, key) => (
                                         <Picture pictureData={picture} index={key + 1}
-                                                 gridColumn={pictureLayoutStyles}/>
+                                                 gridColumn={pictureLayoutStyles} main={true}/>
                                     ))}
                                 </SortableContext>
                             ) : null}

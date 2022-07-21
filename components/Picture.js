@@ -3,7 +3,7 @@ import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
 import {useState, useEffect} from "react";
 
-function Picture({pictureData = {}, index, gridColumn = {}}) {
+function Picture({pictureData = {}, index, gridColumn = {}, main}) {
     const [zoom, setZooming] = useState()
     let zoomStyles
 
@@ -25,8 +25,15 @@ function Picture({pictureData = {}, index, gridColumn = {}}) {
         transform: CSS.Translate.toString(transform),
         zIndex: isDragging ? '10' : '1',
         opacity: isDragging ? '0.5' : '1',
-        gridColumn: index % 2 === 0 && index % 3 !== 0 ? gridColumn.modulus2Div : index % 3 === 0 ? gridColumn.modulus3Div : 'span 1'
+        gridColumn: index % 2 === 0 && index % 3 !== 0 ? gridColumn.modulus2Div : index % 3 === 0 ? gridColumn.modulus3Div : 'span 1',
     };
+
+    if (!main) {
+        style.height = gridColumn.height
+        style.width = gridColumn.width
+        style.minHeight = gridColumn.height
+        style.maxHeight = gridColumn.height
+    }
 
     const mouseInDiv = (event) => {
         event.preventDefault()
@@ -91,27 +98,29 @@ function Picture({pictureData = {}, index, gridColumn = {}}) {
              style={style}
              {...listeners}
              {...attributes}
-             // onMouseMove={mouseInDiv}
-            onMouseEnter={zoomIn}
-             onMouseLeave={mouseOutDiv}
+            // onMouseMove={mouseInDiv}
+             onMouseEnter={main ? zoomIn : () => {}}
+             onMouseLeave={main ? mouseOutDiv : () => {}}
              id={pictureData.id}>
             <img className={styles.picture_div_img} src={pictureData.urls.regular} alt={""} style={zoom}
                  loading={"lazy"}/>
-            <div className={styles.picture_div_info} onClick={zoomInStyles}>
-                <div className={styles.picture_div_info_bg} data-position="top-right">
-                    <span className="material-symbols-rounded">person</span>
+            {main && <>
+                <div className={styles.picture_div_info} onClick={zoomInStyles}>
+                    <div className={styles.picture_div_info_bg} data-position="top-right">
+                        <span className="material-symbols-rounded">person</span>
+                    </div>
                 </div>
-            </div>
-            <div className={styles.picture_div_info}>
-                <div className={styles.picture_div_info_bg}>
-                    <span className="material-symbols-rounded">show_chart</span>
+                <div className={styles.picture_div_info}>
+                    <div className={styles.picture_div_info_bg}>
+                        <span className="material-symbols-rounded">show_chart</span>
+                    </div>
                 </div>
-            </div>
-            <div className={styles.picture_div_info}>
-                <div className={styles.picture_div_info_bg}>
-                    <span className="material-symbols-rounded">123</span>
+                <div className={styles.picture_div_info}>
+                    <div className={styles.picture_div_info_bg}>
+                        <span className="material-symbols-rounded">123</span>
+                    </div>
                 </div>
-            </div>
+            </>}
             {/*<div style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', position: 'absolute', top: '0', left: '0', zIndex: '1', padding: '16px'}}>*/}
             {/*     <div style={{display: 'flex', alignItems: 'center'}}>*/}
             {/*         <img src={pictureData.user.profile_image.medium} alt={""} style={{width: '40px', height: '40px', objectFit: 'contain', borderRadius: '50%'}}/>*/}

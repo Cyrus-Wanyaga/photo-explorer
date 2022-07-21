@@ -2,7 +2,7 @@ import styles from "../styles/DifficultyOptions.module.css"
 import {useEffect, useState, createRef} from "react";
 import anime from "animejs";
 
-export default function DifficultyOptions({difficultyOptions, setDifficultyOptions, reload}) {
+export default function DifficultyOptions({difficultyOptions, reload}) {
     const [showDifficultyOptions, setShowDifficultyOptions] = useState(false)
 
     const difficultyDivRef = createRef()

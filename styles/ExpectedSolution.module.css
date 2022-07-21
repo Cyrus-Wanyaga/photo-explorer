@@ -1,0 +1,84 @@
+.container {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.8);;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s ease-in all;
+}
+
+.inner_div {
+    width: initial;
+    height: inherit;
+    background-color: #f49a5a;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0.4px 0.4px 2.2px rgba(0, 0, 0, 0.02),
+    1px 1px 5.3px rgba(0, 0, 0, 0.028),
+    1.9px 1.9px 10px rgba(0, 0, 0, 0.035),
+    3.4px 3.4px 17.9px rgba(0, 0, 0, 0.042),
+    6.3px 6.3px 33.4px rgba(0, 0, 0, 0.05),
+    15px 15px 80px rgba(0, 0, 0, 0.07);
+    transition: 0.5s ease-in all;
+}
+
+.instructions_div {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0 0 0;
+}
+
+.close_btn_div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close_btn_div span {
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.5s;
+}
+
+.close_btn_div span:hover {
+    background-color: white;
+    border-radius: 8px;
+    color: #f49a5a;
+}
+
+.expected_solution_div {
+    display: grid;
+    grid-gap: 16px;
+    height: 100%;
+    margin: 16px 0;
+}
+
+.start_game_div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.start_game_btn {
+    padding: 16px 32px;
+    border-radius: 4px;
+    background-color: white;
+    color: #151515;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.5s ease-in;
+}
+
+.start_game_btn:hover {
+    background-color: blueviolet;
+    color: white;
+}

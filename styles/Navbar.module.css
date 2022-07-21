@@ -81,11 +81,12 @@
     right: 0;
     top: 0;
     padding: 8px;
-    transform: translate(0, 80px);
+    transform-origin: bottom center;
+    transform: translate(0, 80px) !important;
 }
 
 .navbar_dropdown_holder {
-    padding: 16px;
+    padding: 8px 16px;
     background-color: rebeccapurple;
     width: 300px;
     align-items: flex-start;
@@ -111,7 +112,7 @@
     align-items: center;
     padding: 16px;
     margin: 8px 0;
-    border-radius: 12px;
+    border-radius: 8px;
     transition: 0.5s all ease-in;
 }
 
@@ -120,7 +121,7 @@
 }
 
 .navbar_dropdown_div:hover.navbar_dropdown_div p {
-    color: rebeccapurple;
+    color: white;
 }
 
 @media only screen and (max-width: 600px) {
