@@ -77,12 +77,6 @@ function Picture({pictureData = {}, index, gridColumn = {}, main}) {
         setZooming(zoomStyles)
     }
 
-    const zoomInStyles = (event) => {
-        console.log("Clicked")
-        // event.preventDefault()
-        // console.log(event.target)
-    }
-
     const zoomIn = (event) => {
         event.preventDefault()
         zoomStyles = {
@@ -105,7 +99,7 @@ function Picture({pictureData = {}, index, gridColumn = {}, main}) {
             <img className={styles.picture_div_img} src={pictureData.urls.regular} alt={""} style={zoom}
                  loading={"lazy"}/>
             {main && <>
-                <div className={styles.picture_div_info} onClick={zoomInStyles}>
+                <div className={styles.picture_div_info}>
                     <div className={styles.picture_div_info_bg} data-position="top-right">
                         <span className="material-symbols-rounded">person</span>
                     </div>

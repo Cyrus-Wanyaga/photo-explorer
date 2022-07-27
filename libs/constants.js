@@ -8,9 +8,9 @@ export const defaultArrowStyles = {
 
 export const defaultPictureLayoutStyles = {
     mainDiv: {
-        gridTemplateColumns: '1fr 1fr 1fr 1fr'
+        gridTemplateColumns: '1fr 1fr'
     },
-    modulus2Div: 'span 2',
+    modulus2Div: 'span 1',
     modulus3Div: 'span 1'
 }
 

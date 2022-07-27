@@ -49,6 +49,7 @@ export default function Home() {
 
     const {attributes, listeners, draggableNodeRef, transform} = useDraggable({})
 
+    //Load difficulty settings
     useEffect(() => {
         showExpectedSolution ? document.body.parentElement.style.overflowY = "hidden" : null
         const loadConfigs = () => {
@@ -85,14 +86,13 @@ export default function Home() {
                     })
                 }
             } else {
-                setResultsCount(12)
+                setResultsCount(4)
                 setPictureLayoutStyles(defaultPictureLayoutStyles)
             }
         }
 
         loadConfigs()
-        resultsCount !== undefined ? fetchPictures(page) : () => {
-        }
+        resultsCount !== undefined ? fetchPictures(page) : () => {}
     }, [resultsCount])
 
     useEffect(() => {
@@ -391,10 +391,23 @@ export default function Home() {
         openMobileNavTrigger: [openMobileNav, setOpenMobileNav]
     }
 
+    const randomizeChallenge = () => {
+        const index = Math.floor(Math.random() * searchOptions.length)
+        console.log("Index is " + index)
+        const selectedSearchTerm = searchOptions[index]
+        const page = Math.floor(Math.random() * 10) + 1
+        console.log("Search term is " + selectedSearchTerm)
+        console.log("Page is " + page)
+        setSearchTerm(selectedSearchTerm)
+        setPage(page)
+
+
+    }
+
     return (
         <Layout title={"Photo Explorer"}>
             <div className={""} style={{position: 'relative'}}>
-                {solved && <SuccessMessage showSuccess={setSolved}/>}
+                {solved && <SuccessMessage showSuccess={setSolved} loadNewChallenge={randomizeChallenge}/>}
                 {showExpectedSolution &&
                     <ExpectedSolution showExpectedSolution={setShowExpectedSolution} pictures={originalPictures}
                                       layoutStyles={pictureLayoutStyles}/>}
@@ -438,7 +451,7 @@ export default function Home() {
                                 <SortableContext items={pictures.map(picture => picture.id)}
                                                  strategy={rectSwappingStrategy}>
                                     {pictures.map((picture, key) => (
-                                        <Picture pictureData={picture} index={key + 1}
+                                        <Picture key={key} pictureData={picture} index={key + 1}
                                                  gridColumn={pictureLayoutStyles} main={true}/>
                                     ))}
                                 </SortableContext>

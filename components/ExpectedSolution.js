@@ -29,7 +29,7 @@ export default function ExpectedSolution({showExpectedSolution, pictures = [], l
                 </div>
                 <div className={styles.expected_solution_div} style={layoutStyles.mainDiv}>
                     {pictures !== null && pictures.length > 0 ? (<>{pictures.map((picture, key) => (
-                        <Picture pictureData={picture} index={key + 1}
+                        <Picture key={key} pictureData={picture} index={key + 1}
                                  gridColumn={layoutStyles} main={false}/>
                     ))}</>) : null}
                 </div>

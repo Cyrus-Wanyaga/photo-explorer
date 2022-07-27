@@ -70,7 +70,7 @@ export default function LayoutOptions({layoutOptions, setPictureLayoutOptionsSty
                         <div className={styles.layout_select_div_shape}/>
                         <div className={styles.layout_select_div_shape}/>
                     </div>
-                    <p>2 x 2</p>
+                    <p>2 columns</p>
                 </div>
             </div>
             <div className={styles.layout_select_div}>
@@ -85,7 +85,7 @@ export default function LayoutOptions({layoutOptions, setPictureLayoutOptionsSty
                         <div className={styles.layout_select_div_shape}/>
                         <div className={styles.layout_select_div_shape}/>
                     </div>
-                    <p>3 x n</p>
+                    <p>3 columns</p>
                 </div>
             </div>
         </div>

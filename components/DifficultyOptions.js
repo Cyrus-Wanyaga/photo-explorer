@@ -64,7 +64,7 @@ export default function DifficultyOptions({difficultyOptions, reload}) {
                     <div className={styles.difficulty_options_shape}/>
                     <div className={styles.difficulty_options_shape}/>
                 </div>
-                <p>Easy</p>
+                <p>Starter</p>
             </div>
             <div className={styles.difficulty_options_select_div}>
                 <div className={styles.difficulty_options_select_inner_div} onClick={setMediumDifficulty}>
@@ -82,35 +82,35 @@ export default function DifficultyOptions({difficultyOptions, reload}) {
                     <div className={styles.difficulty_options_shape}/>
                     <div className={styles.difficulty_options_shape}/>
                 </div>
-                <p>Medium</p>
+                <p>Advanced</p>
             </div>
-            <div className={styles.difficulty_options_select_div}>
-                <div className={styles.difficulty_options_select_inner_div} onClick={setMasterDifficulty}>
-                    <div className={styles.difficulty_options_shape}/>
-                    <div className={styles.difficulty_options_shape}/>
-                    <div className={styles.difficulty_options_shape}/>
-                    <div className={styles.difficulty_options_shape}/>
-                </div>
-                <div className={styles.difficulty_options_select_inner_div} onClick={setMasterDifficulty}>
-                    <div className={styles.difficulty_options_shape}/>
-                    <div className={styles.difficulty_options_shape}/>
-                    <div className={styles.difficulty_options_shape}/>
-                    <div className={styles.difficulty_options_shape}/>
-                </div>
-                <div className={styles.difficulty_options_select_inner_div} onClick={setMasterDifficulty}>
-                    <div className={styles.difficulty_options_shape}/>
-                    <div className={styles.difficulty_options_shape}/>
-                    <div className={styles.difficulty_options_shape}/>
-                    <div className={styles.difficulty_options_shape}/>
-                </div>
-                <div className={styles.difficulty_options_select_inner_div} onClick={setMasterDifficulty}>
-                    <div className={styles.difficulty_options_shape}/>
-                    <div className={styles.difficulty_options_shape}/>
-                    <div className={styles.difficulty_options_shape}/>
-                    <div className={styles.difficulty_options_shape}/>
-                </div>
-                <p>Master</p>
-            </div>
+            {/*<div className={styles.difficulty_options_select_div}>*/}
+            {/*    <div className={styles.difficulty_options_select_inner_div} onClick={setMasterDifficulty}>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*    </div>*/}
+            {/*    <div className={styles.difficulty_options_select_inner_div} onClick={setMasterDifficulty}>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*    </div>*/}
+            {/*    <div className={styles.difficulty_options_select_inner_div} onClick={setMasterDifficulty}>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*    </div>*/}
+            {/*    <div className={styles.difficulty_options_select_inner_div} onClick={setMasterDifficulty}>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*        <div className={styles.difficulty_options_shape}/>*/}
+            {/*    </div>*/}
+            {/*    <p>Master</p>*/}
+            {/*</div>*/}
         </div>
     )
 }

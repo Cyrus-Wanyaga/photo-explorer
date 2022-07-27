@@ -6,7 +6,7 @@
     right: 0;
     bottom: 0;
     z-index: 20;
-    background-color: rgba(0, 0, 0, 0.8);;
+    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,9 +14,9 @@
 }
 
 .inner_div {
-    width: initial;
+    width: 500px;
     height: inherit;
-    background-color: lawngreen;
+    background-color: seagreen;
     border-radius: 8px;
     padding: 16px;
     box-shadow: 0.4px 0.4px 2.2px rgba(0, 0, 0, 0.02),
@@ -26,4 +26,90 @@
     6.3px 6.3px 33.4px rgba(0, 0, 0, 0.05),
     15px 15px 80px rgba(0, 0, 0, 0.07);
     transition: 0.5s ease-in all;
+}
+
+.close_icon_div {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.close_icon_div span {
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.5s;
+}
+
+.close_icon_div span:hover {
+    background-color: white;
+    border-radius: 8px;
+    color: #f49a5a;
+}
+
+.content_div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 16px 0 0 0;
+    flex-direction: column;
+}
+
+.mock_grid_div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 8px;
+    margin: 16px 0;
+}
+
+.mock_picture_card {
+    width: 40px;
+    height: 40px;
+    background-color: #f49a5a;
+    border: 2px solid transparent;
+    border-radius: 8px;
+}
+
+/*.mock_picture_card:nth-of-type(2) {*/
+/*    background-color: darkslategray;*/
+/*}*/
+
+/*.mock_picture_card:nth-of-type(3) {*/
+/*    background-color: darkslategray;*/
+/*}*/
+
+.button_div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.button_div button {
+    border: none;
+    padding: 16px 32px;
+    background-color: rebeccapurple;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.5s ease-in;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.button_div button:hover {
+    background-color: white;
+    color: #151515;
+}
+
+.button_div_span {
+    margin: 0 0 0 16px;
+    transform: rotate(45deg);
+    transition: inherit;
+}
+
+.button_div button:hover .button_div_span {
+    transform: rotate(270deg);
 }
