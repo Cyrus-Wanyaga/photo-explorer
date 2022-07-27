@@ -393,15 +393,12 @@ export default function Home() {
 
     const randomizeChallenge = () => {
         const index = Math.floor(Math.random() * searchOptions.length)
-        console.log("Index is " + index)
         const selectedSearchTerm = searchOptions[index]
         const page = Math.floor(Math.random() * 10) + 1
-        console.log("Search term is " + selectedSearchTerm)
-        console.log("Page is " + page)
         setSearchTerm(selectedSearchTerm)
         setPage(page)
-
-
+        splide.go(page)
+        reloadPicturesWithNewParams(selectedSearchTerm, page)
     }
 
     return (
